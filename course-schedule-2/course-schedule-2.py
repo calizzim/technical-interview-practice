@@ -1,4 +1,5 @@
 from typing import List
+from collections import deque
 class Solution:
     def findOrder(self, numCourses: int, prerequisites: List[List[int]]) -> List[int]:
         # make graph - use hash table
@@ -13,17 +14,20 @@ class Solution:
         visited = set()
         while(len(tovisit)):
             ans = self.acyclicR(graph, tovisit, visiting, visited, tovisit.pop())
-            if(not ans): return False 
-        return True
+            if(not ans): return []
+        #determine order
+        
 
     def acyclicR(self, graph: dict, tovisit: set, visiting: set, visited: set, current):
         if current in visited: return True
         if current in visiting: return False
-        if current in tovisit: tovisit.remove(current); visiting.add(current)
+        if(current in tovisit): tovisit.remove(current)
+        visiting.add(current)
         for node in graph[current]:
             ans = self.acyclicR(graph, tovisit, visiting, visited, node)
             if(not ans): return False
-        visiting.remove(current); visited.add(current)
+        visiting.remove(current)
+        visited.add(current)
         return True
         
 s = Solution()

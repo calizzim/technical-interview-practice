@@ -1,3 +1,7 @@
-s = set()
-s.add(0)
-print(s.remove(0))
+from collections import deque
+s = deque()
+s.append(1)
+s.append(2)
+s.append(3)
+while(len(s)):
+    print(s.pop())
