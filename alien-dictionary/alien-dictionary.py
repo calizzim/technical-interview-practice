@@ -15,7 +15,8 @@ class Solution:
         #add rules to the graph
         for index, word in enumerate(words[0:len(words)-1]):
             nextWord = words[index+1]
-            for letterIndex, letter in enumerate(word[0:int(min(len(word),len(nextWord)))]):
+            if len(word)>len(nextWord) and word[0:len(nextWord)]==nextWord: return ""
+            for letterIndex, letter in enumerate(word):
                 nextWordLetter = nextWord[letterIndex]
                 if letter != nextWordLetter:
                     graph[letter].append(nextWordLetter)
