@@ -11,12 +11,14 @@ class Solution:
         # check that the graph is acyclic - if not return []
         tovisit = set(range(numCourses))
         visiting = set()
-        visited = set()
+        visited = deque()
         while(len(tovisit)):
-            ans = self.acyclicR(graph, tovisit, visiting, visited, tovisit.pop())
-            if(not ans): return []
+            if not self.acyclicR(graph, tovisit, visiting, visited, tovisit.pop()): return []
         #determine order
-        
+        ans = []
+        while(len(visited)):
+            ans.append(visited.pop())
+        return ans
 
     def acyclicR(self, graph: dict, tovisit: set, visiting: set, visited: set, current):
         if current in visited: return True
@@ -24,10 +26,9 @@ class Solution:
         if(current in tovisit): tovisit.remove(current)
         visiting.add(current)
         for node in graph[current]:
-            ans = self.acyclicR(graph, tovisit, visiting, visited, node)
-            if(not ans): return False
+            if not self.acyclicR(graph, tovisit, visiting, visited, node): return False
         visiting.remove(current)
-        visited.add(current)
+        visited.append(current)
         return True
         
 s = Solution()
