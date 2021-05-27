@@ -13,7 +13,7 @@ class Solution:
         visited = set()
         while(len(tovisit)):
             ans = self.acyclicR(graph, tovisit, visiting, visited, tovisit.pop())
-            if(not ans): return 
+            if(not ans): return False 
         return True
 
     def acyclicR(self, graph: dict, tovisit: set, visiting: set, visited: set, current):
